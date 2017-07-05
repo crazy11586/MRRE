@@ -151,14 +151,10 @@ public class RegisterSecondStepFragment extends Fragment {
             intent.setAction("com.jsu.activity.change");
             intent.putExtra("index","3");
             getActivity().sendBroadcast(intent);
-
         }else{
             ToastUtil.showLongToast("验证码错误，请重新输入");
             mSubmitCodeBtn.setEnabled(true);
         }
-
-
-
     }
 
 

@@ -3,7 +3,6 @@ package com.jsu.bigdot.mrre.login;
 
 import com.jsu.bigdot.mrre.base.BasePresenter;
 import com.jsu.bigdot.mrre.base.BaseView;
-import com.jsu.bigdot.mrre.po.User;
 
 /**
  * 登录关联接口类
@@ -18,7 +17,8 @@ public interface LoginContract {
         void showProgress();
         void hideProgress();
         void navigateToRegister();
-
+        void PasswordError();
+        void PasswordOK();
     }
 
     interface Presenter extends BasePresenter {

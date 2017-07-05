@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import com.jsu.bigdot.mrre.login.LoginActivity;
 import com.jsu.bigdot.mrre.regist.fragment.RegisterFirstStepFragment;
 import com.jsu.bigdot.mrre.regist.fragment.RegisterSecondStepFragment;
 import com.jsu.bigdot.mrre.regist.fragment.RegisterThirdStepFragment;
+import com.jsu.bigdot.mrre.utils.ToastUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,14 +60,40 @@ public class RegistActivity extends BaseActivity<RegistContract.Presenter> imple
         @Override
         public void onReceive(Context context, Intent intent) {
             System.out.println("哈哈哈哈，广播事件到了。");
+
             String index = intent.getStringExtra("index");
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            mPresenter.setFragmentTransaction(fragmentTransaction);
-            mPresenter.Change(Integer.parseInt(index));
+            if(index.equals("4")){
+                SharedPreferences sp = getSharedPreferences("regist_content", Context.MODE_PRIVATE);
+                String userphone = sp.getString("phone","null");
+                String username = userphone;
+                String userimg = "http://img2.imgtn.bdimg.com/it/u=49292017,22064401&fm=28&gp=0.jpg";
+                String password = sp.getString("password","null");
+                Log.d("test", "onReceive: "+userimg+password+username);
+                mPresenter.register(userphone,username,password,userimg);
+
+            }else {
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                mPresenter.setFragmentTransaction(fragmentTransaction);
+                mPresenter.Change(Integer.parseInt(index));
+            }
         }
     }
     private MyReceiver receiver;
 
+    @Override
+    public void hideProgress() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void PasswordOk() {
+        ToastUtil.showLongToast("yes");
+    }
+
+    @Override
+    public void PasswordError() {
+        ToastUtil.showLongToast("no");
+    }
 
     @OnClick(R.id.back)
     public void onClick(View view) {

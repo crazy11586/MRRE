@@ -5,11 +5,21 @@ import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.jsu.bigdot.mrre.R;
+import com.jsu.bigdot.mrre.bean.UserBean;
 import com.jsu.bigdot.mrre.regist.fragment.RegisterFirstStepFragment;
 import com.jsu.bigdot.mrre.regist.fragment.RegisterSecondStepFragment;
 import com.jsu.bigdot.mrre.regist.fragment.RegisterThirdStepFragment;
+import com.jsu.bigdot.mrre.retrofit.UserRetrofit;
+import com.jsu.bigdot.mrre.service.UsersService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * login的presenter层 进行对view 和 model 的控制,
@@ -38,9 +48,32 @@ public class RegistPresenter implements RegistContract.Presenter {
 
     }
 
+    private Call<List<UserBean>> callback;
+    private UserBean studentBean;
+    private UsersService service;
+
     @Override
-    public void register(String phone, String password) {
+    public void register(String userphone , String username , String password , String userimg) {
+        service=new UserRetrofit().getService();
+        callback = service.register(userphone, username,password,userimg);
+
+        callback.enqueue(new Callback<List<UserBean>>() {
+            @Override
+            public void onResponse(Call<List<UserBean>> call, Response<List<UserBean>> response) {
+                Log.i("isSuccess","true");
+                List<UserBean> studentBean = response.body();
+                loginView.hideProgress();
+                loginView.PasswordOk();
+            }
+
+            @Override
+            public void onFailure (Call <List<UserBean>> call, Throwable t){
+                loginView.hideProgress();
+                loginView.PasswordError();
+            }
+        });
         loginView.showProgress();
+
     }
 
     @Override

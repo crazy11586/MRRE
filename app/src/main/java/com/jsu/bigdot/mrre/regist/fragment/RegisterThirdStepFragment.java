@@ -1,6 +1,7 @@
 package com.jsu.bigdot.mrre.regist.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -109,6 +110,15 @@ public class RegisterThirdStepFragment extends Fragment {
 
         // 避免重复点击
         mRegisterBtn.setEnabled(false);
+        Intent intent = new Intent();
+        intent.setAction("com.jsu.activity.change");
+        intent.putExtra("index","4");
+        getActivity().sendBroadcast(intent);
+
+        SharedPreferences sp = getActivity().getSharedPreferences("regist_content", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("password",mPasswordEdit.getText().toString().trim());
+
         ToastUtil.showLongToast("Success: mMobile "+ mMobile);
     }
 

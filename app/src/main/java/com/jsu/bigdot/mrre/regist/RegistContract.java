@@ -14,10 +14,13 @@ public interface RegistContract {
 
     interface View extends BaseView{
         void showProgress();
+        void hideProgress();
+        void PasswordError();
+        void PasswordOk();
     }
 
     interface Presenter extends BasePresenter{
-        void register(String phone , String password);
+        void register(String userphone , String username , String password , String userimg);
 
         void setFragmentTransaction(FragmentTransaction fragmentTransaction);
 

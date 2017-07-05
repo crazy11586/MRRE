@@ -1,7 +1,6 @@
 package com.jsu.bigdot.mrre.login;
 
 
-import com.jsu.bigdot.mrre.po.User;
 
 /**
  * Created by Administrator on 2016/7/8.

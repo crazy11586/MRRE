@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.jsu.bigdot.mrre.R;
 import com.jsu.bigdot.mrre.base.BaseActivity;
 import com.jsu.bigdot.mrre.regist.RegistActivity;
+import com.jsu.bigdot.mrre.utils.ToastUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,6 +35,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        ToastUtil.init(this);
         mPresenter=new LoginPresenter(this);
         mPresenter.start();
     }
@@ -46,6 +48,16 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
     public void navigateToRegister() {
         Intent intent =new Intent(getBaseContext(),RegistActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void PasswordError() {
+        ToastUtil.showLongToast("Password Error OR Accout doesn't exists");
+    }
+
+    @Override
+    public void PasswordOK() {
+        ToastUtil.showLongToast("ok");
     }
 
     @OnClick({R.id.email_sign_in_button, R.id.email_register_button})

@@ -43,7 +43,7 @@ import butterknife.OnTextChanged;
  * email：wanghonghi@126.com
  */
 
-public class RegisterFirstStepFragment extends BaseFragment implements  RegistContract.View{
+public class RegisterFirstStepFragment extends BaseFragment{
 
     private SharedPreferences sp;
 
@@ -145,11 +145,6 @@ public class RegisterFirstStepFragment extends BaseFragment implements  RegistCo
 
     @Override
     public void initView() {
-
-    }
-
-    @Override
-    public void showProgress() {
 
     }
 

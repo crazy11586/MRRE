@@ -15,6 +15,8 @@ import java.util.Stack;
  */
 public class AppManager {
 
+    public static String BaseUrl="http://192.168.137.1:8080/Solidarity/";
+
     private static Stack<Activity> activityStack;
 
     private static AppManager instance;
