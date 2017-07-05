@@ -118,7 +118,7 @@ public class RegisterThirdStepFragment extends Fragment {
         SharedPreferences sp = getActivity().getSharedPreferences("regist_content", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         edit.putString("password",mPasswordEdit.getText().toString().trim());
-
+        edit.commit();
         ToastUtil.showLongToast("Success: mMobile "+ mMobile);
     }
 
